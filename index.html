@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lb3.js</title>
+    <style>
+        h1{
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        ul {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Лабораторна робота №3</h1>
+<fieldset>
+<form id="student-data">
+    <label for="surname">Прізвище студента:</label>
+     <input type="text"  name="surname" id="surname">
+
+    <br>
+    <br>
+
+    <label for="grade1"> Оцінка 1:</label>
+    <input type="number" class="grade" min="2" max="5" >
+
+    <br>
+
+    <label for="grade2"> Оцінка 2:</label>
+     <input type="number" class ="grade" min="2" max="5" >
+    
+
+    <br>
+
+    <label for="grade3"> Оцінка 3: </label>
+    <input type="number" class ="grade" min="2" max="5" >
+    
+
+    <br>
+
+    <label for="grade4"> Оцінка 4: </label>
+    <input type="number" class="grade" min="2" max="5" >
+
+    <br>
+
+    <label for="grade5"> Оцінка 5:</label>
+    <input type="number" class="grade" min="2" max="5">
+    
+
+    <br>
+    <br>
+    <input type="submit" value="Додати студента">
+</form>
+
+<p id="excellentCount">Відмінники: 0 </p>
+<p id="goodCount">Хорошисти: 0 </p>
+<p id="unsuccessfulCount">Неуспішні: 0 </p>
+</fieldset>
+
+<h3>Список неуспішних студентів:</h3>
+<ul id="unsuccessful-student"></ul>
+
+<script> 
+  const form = document.getElementById('student-data');
+        const gradesInputs = document.querySelectorAll('.grade');
+        const excellentCountElement = document.getElementById('excellentCount');
+        const goodCountElement = document.getElementById('goodCount');
+        const unsuccessfulCountElement = document.getElementById('unsuccessfulCount');
+        const unsuccessfulList = document.getElementById('unsuccessful-student');
+
+        let excellentCount = 0;
+        let goodCount = 0;
+        let unsuccessfulCount = 0;
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const surname = document.getElementById('surname').value.trim();
+            const grades = Array.from(gradesInputs).map(input => parseInt(input.value));
+
+            if (grades.every(grade => grade === 5)) {
+                excellentCount++;
+                excellentCountElement.textContent = `Відмінники: ${excellentCount}`;
+            } else if (grades.every(grade => grade >= 4)) {
+                goodCount++;
+                goodCountElement.textContent = `Хорошисти: ${goodCount}`;
+            } else if (grades.some(grade => grade === 2)) {
+                unsuccessfulCount++;
+                unsuccessfulCountElement.textContent = `Неуспішні: ${unsuccessfulCount}`;
+
+                const li = document.createElement('li');
+                li.textContent = surname;
+                unsuccessfulList.appendChild(li);
+            }
+
+            form.reset();
+        });
+</script>
+
+    
+</body>
+</html>
