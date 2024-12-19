@@ -77,19 +77,19 @@
         let goodCount = 0;
         let unsuccessfulCount = 0;
 
-        form.addEventListener('submit', (event) => {
+        form.addEventListener('submit', function(event)  {
             event.preventDefault();
 
             const surname = document.getElementById('surname').value.trim();
             const grades = Array.from(gradesInputs).map(input => parseInt(input.value));
 
-            if (grades.every(grade => grade === 5)) {
+            if (grades.every(function(grade) {return grade === 5; })) {
                 excellentCount++;
                 excellentCountElement.textContent = `Відмінники: ${excellentCount}`;
-            } else if (grades.every(grade => grade >= 4)) {
+            } else if (grades.every(function(grade) {return grade >= 4; })) {
                 goodCount++;
                 goodCountElement.textContent = `Хорошисти: ${goodCount}`;
-            } else if (grades.some(grade => grade === 2)) {
+            } else if (grades.some(function(grade) {return grade === 2; })) {
                 unsuccessfulCount++;
                 unsuccessfulCountElement.textContent = `Неуспішні: ${unsuccessfulCount}`;
 
